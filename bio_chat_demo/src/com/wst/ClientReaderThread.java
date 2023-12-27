@@ -1,0 +1,28 @@
+package com.wst;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+public class ClientReaderThread extends Thread{
+
+    private Socket socket;
+
+    public ClientReaderThread(Socket socket){
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String msg;
+            while((msg = br.readLine()) != null){
+                System.out.println("接受到的消息为：" + msg);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+}
